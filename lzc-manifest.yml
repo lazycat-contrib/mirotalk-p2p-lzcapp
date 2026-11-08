@@ -1,0 +1,33 @@
+application:
+  subdomain: mirotalk
+  multi_instance: false
+  # The app ships no account system by default (HOST_PROTECTED is off, rooms
+  # are ad-hoc), so it stays behind the platform login instead of public_path.
+  upstreams:
+    - location: /
+      backend: http://mirotalk:3000/
+services:
+  mirotalk:
+    image: embed:mirotalk
+    environment:
+      - NODE_ENV=production
+      # The app sits behind the platform reverse proxy.
+      - TRUST_PROXY=true
+      # Required by the app (min 32 chars, it refuses to start without it);
+      # pinned so sessions survive container rebuilds.
+      - JWT_KEY={{ printf "%x" (stable_secret "mirotalk_jwt_key") }}
+usage: |
+  MiroTalk P2P 是开源的点对点 WebRTC 视频会议应用：打开入口创建房间、
+  把链接发给对方即可开会，支持 4K/60fps、屏幕共享、聊天、白板与会议录制，
+  无需下载客户端、无需注册账号。
+
+  使用说明：
+    - 本应用默认没有账号体系（房间即建即用），因此本包不使用 public_path，
+      统一经懒猫平台入口鉴权访问。
+    - 音视频流在参会者浏览器之间点对点直连，服务器只负责信令，无需开放
+      额外的 UDP 端口；若双方都在严格的 NAT 后，可能因缺少 TURN 服务器
+      无法建立连接，本包未内置 TURN。
+    - 会议录制文件由浏览器保存在本地，服务器不存储任何会议内容。
+    - 上游不发布版本化镜像，本包按上游 master 源码内嵌构建（对应
+      package.json 版本 2.2.81）。
+    - 未做实机验证。

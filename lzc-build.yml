@@ -1,0 +1,13 @@
+manifest: ./lzc-manifest.yml
+pkgout: ./dist
+icon: ./icon.png
+contentdir: ./content
+# Upstream publishes no versioned images (mirotalk/p2p on Docker Hub only has
+# `latest`), so the app is built from upstream source at package-build time
+# (see buildscript.sh) and embedded into the LPK.
+images:
+  mirotalk:
+    dockerfile: ./upstream/Dockerfile
+    context: ./upstream
+    builder: local
+buildscript: ./buildscript.sh

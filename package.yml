@@ -1,0 +1,18 @@
+package: community.lazycat.app.mirotalk-p2p
+name: MiroTalk P2P
+description: "Open-source P2P WebRTC video conferencing: browser-based rooms with screen sharing, chat and whiteboard, no downloads or accounts."
+version: 2.2.81
+min_os_version: "1.5.0"
+homepage: https://github.com/miroslavpejic85/mirotalk
+author: miroslavpejic85
+license: AGPL-3.0
+permissions:
+  required:
+    - net.internet
+locales:
+  zh:
+    name: MiroTalk P2P
+    description: "开源 P2P WebRTC 视频会议：浏览器即开即用的房间，支持屏幕共享、聊天与白板，无需下载和账号。"
+  en:
+    name: MiroTalk P2P
+    description: "Open-source P2P WebRTC video conferencing: browser-based rooms with screen sharing, chat and whiteboard, no downloads or accounts."
